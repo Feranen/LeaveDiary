@@ -1,13 +1,18 @@
-﻿internal class Program
+﻿using System.Diagnostics.Metrics;
+
+internal class Program
 {
     private static void Main(string[] args)
     {
         var user1 = new User();
+        User.GetCounter();
         var user2 = new User();
+        User.GetCounter();
 
         var request = new LeaveRequest();
 
         user1.Id = 1;
+
         user2.Id = user1.Id + 1;
 
         user1.Name = "Yaroslav";
@@ -23,7 +28,19 @@ public class User
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
+    private static int Counter = -1;
+    public User()
+    {
+        Counter++;
+    }
+    public static int GetCounter()
+    {
+        Console.WriteLine(Counter);
+        return Counter;
+    }
 }
+
+
 
 public class LeaveRequest
 {
